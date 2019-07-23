@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>json example</title>
+</head>
+<body>
+<form action="#" name="myForm">
+   <p>
+       <input  type="text" name="token" placeholder="Enter please your token">
+   </p>
+    <p>
+        <select name="action">
+            <option value="getCars">List of the cars</option>
+            <option value="getCountries">List of the Countries</option>
+            <option value="getPlayers">List of the players</option>
+            <option value="getDrags">List of the drags)</option>
+        </select>
+    </p>
+    <p>
+        <input type="submit" name="send" value="send">
+
+    </p>
+
+</form>
+<script>
+    document.myForm.send.addEventListener('click',()=>{
+        let token=document.myForm.token.value;
+        let action=document.myForm.action.value;
+        //XMLHttpRequest-встроенный обект реализации технологии ajax
+        //creation of the object
+        //1
+        let xhr=new XMLHttpRequest();
+        //configuration
+        //2
+        xhr.open('GET',`client_api.php?token=${token}&action=${action}`,true);
+        //sending of the inquiry
+        //3
+        xhr.send();
+        //событие смены состояния запроса
+        xhr.onreadystatechange=()=>{
+            if(xhr.readyState!==4)
+            {
+                return;
+            }
+            if(xhr.status!==200){
+                console.log(`${xhr.status}:${xhr.statusText}`);
+            }
+            else {
+                alert(xhr.responseText);
+            }
+        };
+    });
+
+    // let user={
+    //     name: "Tom",
+    //     age: 45
+    // };
+    //
+    // let serialazableData=JSON.stringify(user);
+    // console.log(serialazableData)
+    //
+    // let tom=JSON.parse(serialazableData);
+    // console.log(tom.name);
+
+
+
+</script>
+</body>
+</html>
